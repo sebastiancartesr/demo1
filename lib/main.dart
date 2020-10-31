@@ -1,10 +1,19 @@
 import 'package:demo1/ventanas/paciente/bitacora.dart';
 import 'package:demo1/ventanas/paciente/menupaciente.dart';
+import 'package:demo1/ventanas/medico/menutrabajador.dart';
 import 'package:flutter/material.dart';
 import 'package:demo1/login/loginpaciente.dart';
 import 'package:demo1/login/loginmedico.dart';
+import 'package:demo1/ventanas/paciente/datapicker.dart';
 import 'package:flutter/services.dart';
-
+import 'package:demo1/ventanas/paciente/verbitacora.dart';
+import 'package:demo1/ventanas/paciente/verperfil.dart';
+import 'package:demo1/ventanas/paciente/listarnotificaciones.dart';
+import 'package:demo1/ventanas/paciente/listarAlertas.dart';
+import 'package:demo1/ventanas/medico/verbitacora.dart';
+import 'package:demo1/ventanas/medico/verpacientes.dart';
+import 'package:demo1/ventanas/medico/verperfilmedico.dart';
+import 'package:demo1/ventanas/medico/veralertaspaciente.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget{
@@ -18,7 +27,16 @@ class MyApp extends StatelessWidget{
         "/loginmedico" : (BuildContext context) => Loginmedico(),
         "/menup" : (BuildContext context) => Menup(),
         "/bitacora":(BuildContext context) => Bitacora(),
-
+        "/menutrabajador":(BuildContext context) => MenuTrabajador(),
+        "/datapicker":(BuildContext context) => DataPicker(),
+        "/verbitacora":(BuildContext context) => VerBitacora(),
+        "/verperfil":(BuildContext context) => VerPerfil(),
+        "/vernotificacion":(BuildContext context) => ListarNotificaciones(),
+        "/veralertas":(BuildContext context) => ListarAlertas(),
+        "/verbitacoramedico":(BuildContext context) => VerBitacoramedico(),
+        "/verpacientes":(BuildContext context) => VerPaciente(),
+        "/verperfilmedico":(BuildContext context) =>VerPerfilmedico(),
+        "/veralertaspaciente":(BuildContext context) =>VerAlertasPaciente(),
       }
       ,
       home: Inicio()

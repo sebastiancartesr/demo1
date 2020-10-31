@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:demo1/login/loginpaciente.dart';
 import 'package:http/http.dart' as http;
 import 'package:demo1/ventanas/paciente/menupaciente.dart';
-
+import 'package:demo1/controllers/usuario.dart';
 String username;
 
 class Loginmedico extends StatefulWidget {
@@ -19,14 +19,14 @@ class _LoginmedicoState extends State<Loginmedico> {
   
   TextEditingController controllerUser = new TextEditingController();
   TextEditingController controllerPass = new TextEditingController();
-
+  final Usuario _usuario = new Usuario();
   String mensaje = '';
 
 
    Future <List> login() async{
     final response = await http.post("http://192.168.1.108/demo1/loginfuncionario.php", body:{
       "Correo":controllerUser.text,
-      "Contrasenia":controllerPass.text,
+      "clave":controllerPass.text,
     });
     var datauser = json.decode(response.body);
 
@@ -34,10 +34,14 @@ class _LoginmedicoState extends State<Loginmedico> {
       setState(() {
         mensaje="usuario o contraseña incorrecta";});
     }else{
-      Navigator.popAndPushNamed(context, '/menup');
+      Navigator.popAndPushNamed(context, '/menutrabajador');
       setState(() {
-        username= datauser[2]['Correo'];
-        
+          print(datauser[0]['IdPersona']);
+          int aux=int.parse(datauser[0]['IdPersona']);
+          _usuario.id= aux;
+          _usuario.nombre= datauser[0]['PrimerNombre'];
+          _usuario.telefono= datauser[0]['Telefono'];     
+          _usuario.clave= datauser[0]['Clave'];
       });
     }
     return datauser;

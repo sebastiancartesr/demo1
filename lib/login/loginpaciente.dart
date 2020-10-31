@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:demo1/login/loginmedico.dart';
+import 'package:demo1/main.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:demo1/controllers/usuario.dart';
 
-String username;
 
 class Loginpaciente extends StatefulWidget {
-  Loginpaciente({Key key}) : super(key: key);
-
+  //Loginpaciente({Key key}) : super(key: key);
   @override
   _LoginpacienteState createState() => _LoginpacienteState();
 }
@@ -15,25 +15,31 @@ class Loginpaciente extends StatefulWidget {
 class _LoginpacienteState extends State<Loginpaciente> { 
   TextEditingController controllerUser = new TextEditingController();
   TextEditingController controllerPass = new TextEditingController();
-
+  final Usuario _usuario = new Usuario();
   String mensaje = '';
      Future <List> login() async{
-    final response = await http.post("http://192.168.1.108/demo1/loginpaciente.php", body:{
+      
+      final response = await http.post("http://192.168.1.108/demo1/loginpaciente.php", body:{
       "Correo":controllerUser.text,
-      "Contrasenia":controllerPass.text,
-    });
-    var datauser = json.decode(response.body);
+      "clave":controllerPass.text,
+      });
+      var datauser = json.decode(response.body);
 
-    if(datauser.length == 0){
-      setState(() {
-        mensaje="usuario o contraseña incorrecta";});
-    }else{
-      Navigator.popAndPushNamed(context, '/menup');
-      setState(() {
-        username= datauser[2]['Correo'];
-        
+      if(datauser.length == 0){
+        setState(() {
+          mensaje="usuario o contraseña incorrecta";});
+      }else{
+        Navigator.popAndPushNamed(context, '/menup');
+        setState(() {
+          print(datauser[0]['IdPaciente']);
+          int aux=int.parse(datauser[0]['IdPaciente']);
+          _usuario.id= aux;
+          _usuario.nombre= datauser[0]['PrimerNombre'];
+          _usuario.telefono= datauser[0]['Telefono'];     
+          _usuario.clave= datauser[0]['Clave'];
       });
     }
+
     return datauser;
     }
   
@@ -77,6 +83,7 @@ class _LoginpacienteState extends State<Loginpaciente> {
                  padding: EdgeInsets.only(top: 93), 
                  child: Column(
                    children: <Widget> [
+                     
                      Container(
                        width: MediaQuery.of(context).size.width / 1.2,
                        padding: EdgeInsets.only(
