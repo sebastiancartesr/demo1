@@ -4,6 +4,7 @@ import 'package:demo1/login/loginpaciente.dart';
 import 'package:demo1/controllers/usuario.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:demo1/controllers/bitacoraController.dart';
 
 class Bitacora extends StatefulWidget {
   Bitacora({Key key}) : super(key: key);
@@ -14,6 +15,219 @@ class Bitacora extends StatefulWidget {
 }
 
 class _BitacoraState extends State<Bitacora> {
+  final BitacoraController _bitacora= new BitacoraController();
+   
+  Future <List> respuesta() async{
+      Map<String,String> headers = {
+  'Content-type' : 'application/json', 
+  'Accept': 'application/json',
+};
+      
+      final response = await http.post("http://10.0.2.2:36574/predict", body:
+        json.encode({"bitacora":[_nauseas,_vomito,_diarrea,_constipacion,_dolor,_fatiga,_perdidaapetito,(_fiebre).round(),_sintomaresfrio,_sintomasunitarios,_valoricg]})
+      ,headers:headers
+      
+      );
+      print(response);
+      var datauser = json.decode(response.body);
+        print('xd');
+            print(datauser);
+        setState(() {    
+          _bitacora.alerta= (datauser['name']).round();
+          print('el resultado es');
+          print(_bitacora.alerta);
+      });
+
+      enviaralerta();
+
+    return datauser;
+    }
+void setmensaje(){
+  if (_bitacora.alerta==0){
+        setState(() {
+          _bitacora.mensaje="Te encuentras bien de momento.";
+      });
+
+
+  }
+  else if(_bitacora.alerta==1){
+            setState(() {
+          _bitacora.mensaje="Siga las indicaciones de alta.";
+      });
+
+  }
+    else if(_bitacora.alerta==2){
+                 setState(() {
+          _bitacora.mensaje="Siga regimen.";
+      });
+
+
+  }
+    else if(_bitacora.alerta==3){
+                 setState(() {
+          _bitacora.mensaje="Controle temperatura.";
+      });
+
+
+  }
+    else if(_bitacora.alerta==4){
+                 setState(() {
+          _bitacora.mensaje="Avise a las enfermeras.";
+      });
+
+
+  }
+    else if(_bitacora.alerta==5){
+                 setState(() {
+          _bitacora.mensaje="Adelante control medico.";
+      });
+
+
+  }
+    else if(_bitacora.alerta==6){
+                 setState(() {
+          _bitacora.mensaje="Avise a las enfermeras y adelante su control médico.";
+      });
+
+
+  }
+    else{
+        setState(() {
+          _bitacora.mensaje="Vaya a servicio de urgencia.";
+      });
+
+
+  }
+}
+  
+void enviaralerta(){
+  int aux=_bitacora.alerta;
+  setmensaje();
+  enviaralertaphp();
+  if (aux==0){ 
+            showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Te encuentras bien de momento.'),
+            actions:<Widget>[
+              
+              RaisedButton(onPressed: (){
+                Navigator.of(context).pop();
+              },
+               child: Text('Aceptar'))
+            ],),
+        );    
+
+  }
+  else if (aux==1){
+            showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Siga las indicaciones de alta.'),
+            actions:<Widget>[
+              
+              RaisedButton(onPressed: (){
+                Navigator.of(context).pop();
+              },
+               child: Text('Aceptar'))
+            ],),
+        );    
+    
+  }
+  else if (aux==2){
+            showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Siga regimen.'),
+            actions:<Widget>[
+              
+              RaisedButton(onPressed: (){
+                Navigator.of(context).pop();
+              },
+               child: Text('Aceptar'))
+            ],),
+        );    
+
+  }
+    else if (aux==3){
+              showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Controle temperatura.'),
+            actions:<Widget>[
+              
+              RaisedButton(onPressed: (){
+                Navigator.of(context).pop();
+              },
+               child: Text('Aceptar'))
+            ],),
+        );    
+
+  }
+    else if (aux==4){
+              showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Avise a las enfermera.'),
+            actions:<Widget>[
+              
+              RaisedButton(onPressed: (){
+                Navigator.of(context).pop();
+              },
+               child: Text('Aceptar'))
+            ],),
+        );    
+
+  }
+  else  if (aux==5){
+              showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Adelante control medico.'),
+            actions:<Widget>[
+              
+              RaisedButton(onPressed: (){
+                Navigator.of(context).pop();
+              },
+               child: Text('Aceptar'))
+            ],),
+        );    
+
+  }
+  else  if (aux==6){
+              showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Avise enfermera y adelante control médico .'),
+            actions:<Widget>[
+              
+              RaisedButton(onPressed: (){
+                Navigator.of(context).pop();
+              },
+               child: Text('Aceptar'))
+            ],),
+        );    
+
+  }
+    else{
+              showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Vaya a servicio de urgencia.'),
+            actions:<Widget>[
+              
+              RaisedButton(onPressed: (){
+                Navigator.of(context).pop();
+              },
+               child: Text('Aceptar'))
+            ],),
+        );    
+
+    }
+
+  
+
+}
   
   
   
@@ -35,6 +249,19 @@ class _BitacoraState extends State<Bitacora> {
       "ValorICG":_valoricg.toString(),
       "IdPaciente":_usuario.id.toString(),
     });
+    respuesta();
+  }
+    void enviaralertaphp() {
+    var url = "http://192.168.1.108/demo1/adalerta.php";
+
+    http.post(url, body: {
+      "TipoNotificacion": '2',
+      "FechaNotificacion": now.toString(),
+      "Titulo": 'Alerta',
+      "Remitente":'Sistema',
+      "Mensaje":_bitacora.mensaje,
+      "IdPaciente":_usuario.id.toString(),
+    });
   }
 
   
@@ -53,23 +280,7 @@ class _BitacoraState extends State<Bitacora> {
   DateTime now= new DateTime.now();
   
   final Usuario _usuario = new Usuario();
-  void printear(){
-      int usuario= _usuario.id;
-      
-      print (now);
-      print (usuario);
-      print (_nauseas);
-      print (_vomito);
-      print (_diarrea);
-      print (_constipacion);
-      print (_dolor);
-      print (_fatiga);
-      print (_perdidaapetito);
-      print (_fiebre); 
-      print (_sintomaresfrio);
-      print (_sintomasunitarios);
-      print (_valoricg);
-  }
+
 //---------nauseas------------------------------------
   void incrementarnauseas() {
     setState(() {
@@ -1807,7 +2018,7 @@ class _BitacoraState extends State<Bitacora> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(                  
-                            child: Text('¿Qué valor asignaría en relación \n a las Valor ICG en este momento?\n',                 
+                            child: Text('¿Qué valor asignaría en relación \n al Valor ICG en este momento?\n',                 
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
@@ -1905,6 +2116,7 @@ class _BitacoraState extends State<Bitacora> {
               children: [
                 RaisedButton(onPressed:(){
                   addData();
+                  
                   Navigator.popAndPushNamed(context, '/menup');
                 } , child: Text ('Ingresar'))
               ],

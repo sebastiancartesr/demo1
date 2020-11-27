@@ -65,8 +65,7 @@ class ItemList extends StatelessWidget {
                 ),
             child: new Card(
               child: new ListTile(
-                title: new Text(
-                  list[i]['Titulo'],
+                title: new Text("Mensaje de : ${list[i]['Remitente']}",
                   style: TextStyle(fontSize: 25.0, color: Colors.orangeAccent),
                 ),
                 leading: new Icon(
@@ -75,7 +74,7 @@ class ItemList extends StatelessWidget {
                   color: Colors.orangeAccent,
                 ),
                 subtitle: new Text(
-                  "Mensaje de : ${list[i]['Remitente']}",
+                  "Fecha: ${list[i]['FechaNotificacion']}",
                   style: TextStyle(fontSize: 20.0, color: Colors.black),
                 ),
               ),
@@ -114,9 +113,11 @@ class _DetailState extends State<Detail> {
               children: <Widget>[
 
                 new Padding(padding: const EdgeInsets.only(top: 30.0),),
-                new Text("Enviado por: ${widget.list[widget.index]['Remitente']}", style: new TextStyle(fontSize: 20.0),),
+                new Text("Enviado por: ${widget.list[widget.index]['Remitente']} ", style: new TextStyle(fontSize: 20.0),),
                 Divider(),
                 new Text("${widget.list[widget.index]['Mensaje']}", style: new TextStyle(fontSize: 18.0),),
+                new Text("Fecha: ${widget.list[widget.index]['FechaNotificacion']}", style: new TextStyle(fontSize: 18.0),),
+                
                 new Padding(padding: const EdgeInsets.only(top: 30.0),),
 
                 new Row(

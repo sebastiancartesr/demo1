@@ -14,6 +14,14 @@ import 'package:demo1/ventanas/medico/verbitacora.dart';
 import 'package:demo1/ventanas/medico/verpacientes.dart';
 import 'package:demo1/ventanas/medico/verperfilmedico.dart';
 import 'package:demo1/ventanas/medico/veralertaspaciente.dart';
+import 'package:demo1/ventanas/paciente/verbitacoraprueba.dart';
+import 'package:demo1/ventanas/paciente/verbitacoras.dart';
+import 'package:demo1/ventanas/medico/elegirbitacoramedico.dart';
+import 'package:demo1/ventanas/medico/verbitacorapruebamedico.dart';
+import 'package:demo1/ventanas/paciente/informacion.dart';
+import 'package:demo1/ventanas/paciente/Infoverbitacora.dart';
+import 'package:demo1/ventanas/paciente/cambiardatos.dart';
+import 'package:demo1/ventanas/paciente/infoseleccionarbitacora.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget{
@@ -37,6 +45,14 @@ class MyApp extends StatelessWidget{
         "/verpacientes":(BuildContext context) => VerPaciente(),
         "/verperfilmedico":(BuildContext context) =>VerPerfilmedico(),
         "/veralertaspaciente":(BuildContext context) =>VerAlertasPaciente(),
+        "/verbitacoraprueba":(BuildContext context) =>DataPickerprueba(),
+        "/elegirbitacora":(BuildContext context) =>ElegirBitacora(),
+        "/elegirbitacoramedico":(BuildContext context) =>ElegirBitacoramedico(),
+        "/verpacientesdos":(BuildContext context) =>VerPacientedos(),
+        "/verinfo":(BuildContext context) =>VerInfo(),
+        "/infoverbitacora":(BuildContext context) =>InfoBitacora(),
+        "/cambiardatos":(BuildContext context) =>CambiarDatos(),
+        "/selecbitacora":(BuildContext context) =>InfoSeleccionarBitacora(),
       }
       ,
       home: Inicio()

@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import 'package:demo1/controllers/usuario.dart';
+import 'package:demo1/controllers/auxpaciente.dart';
 
 class VerAlertasPaciente extends StatefulWidget {
   VerAlertasPaciente({Key key}) : super(key: key);
@@ -13,10 +14,16 @@ class VerAlertasPaciente extends StatefulWidget {
 
 class _VerAlertasPacienteState extends State<VerAlertasPaciente> {
      final Usuario _usuario = new Usuario();
-     
+     final Paciente _paciente=new Paciente();
     Future<List> getData() async {
     final response = await http.post("http://192.168.1.108/demo1/veralertapacientes.php", body:{
       "IdPersona":_usuario.id.toString(),
+    }); 
+    return json.decode(response.body);  
+  }
+      Future<List> getId() async {
+    final response = await http.post("http://192.168.1.108/demo1/idusuario.php", body:{
+      "IdPersona":_paciente.idd,
     }); 
     return json.decode(response.body);  
   }
@@ -25,7 +32,7 @@ class _VerAlertasPacienteState extends State<VerAlertasPaciente> {
    Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Notificaciones"),
+        title: new Text("Alertas"),
       ),
       body: new FutureBuilder<List>(
         future: getData(),
@@ -66,16 +73,16 @@ class ItemList extends StatelessWidget {
             child: new Card(
               child: new ListTile(
                 title: new Text(
-                  list[i]['Titulo'],
+                  "Paciente: ${list[i]['PrimerNombre']} ${list[i]['PrimerApellido']}",
                   style: TextStyle(fontSize: 25.0, color: Colors.orangeAccent),
                 ),
                 leading: new Icon(
-                  Icons.messenger_outline_sharp,
+                  Icons.assignment_late_outlined,
                   size: 55.0,
                   color: Colors.orangeAccent,
                 ),
                 subtitle: new Text(
-                  "Mensaje de : ${list[i]['Remitente']}",
+                  "Fecha: ${list[i]['FechaNotificacion']}",
                   style: TextStyle(fontSize: 20.0, color: Colors.black),
                 ),
               ),
@@ -112,11 +119,10 @@ class _DetailState extends State<Detail> {
           child: new Center(
             child: new Column(
               children: <Widget>[
-
                 new Padding(padding: const EdgeInsets.only(top: 30.0),),
-                new Text("Enviado por: ${widget.list[widget.index]['Remitente']}", style: new TextStyle(fontSize: 20.0),),
+                new Text("Alerta de: ${widget.list[widget.index]['PrimerNombre']} ${widget.list[widget.index]['PrimerApellido']}", style: new TextStyle(fontSize: 20.0),),
                 Divider(),
-                new Text("${widget.list[widget.index]['Mensaje']}", style: new TextStyle(fontSize: 18.0),),
+                new Text("Se le recomendo al paciente: ${widget.list[widget.index]['Mensaje']}", style: new TextStyle(fontSize: 18.0),),
                 new Padding(padding: const EdgeInsets.only(top: 30.0),),
 
                 new Row(

@@ -42,7 +42,18 @@ class _LoginpacienteState extends State<Loginpaciente> {
 
     return datauser;
     }
-  
+    /*
+    Future respuesta() async{
+      http.Response response = await http.get("http://10.0.2.2:36574/");
+      var datauser = json.decode(response.body);
+      print(datauser);
+
+    return datauser;
+  }
+
+  */
+
+
   @override
   Widget build(BuildContext context) {
     _navegarmedico() async{
@@ -138,7 +149,7 @@ class _LoginpacienteState extends State<Loginpaciente> {
                              Icons.vpn_key,
                              color: Colors.black
                            ),
-                           hintText:'Password'
+                           hintText:'Contraseña'
                          ),
                        ),
                      ),
@@ -177,6 +188,7 @@ class _LoginpacienteState extends State<Loginpaciente> {
                      ),
                      onPressed:(){
                        login();
+                       
                      },
                      ),
                      Text(mensaje,

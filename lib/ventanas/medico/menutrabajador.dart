@@ -38,7 +38,7 @@ class _MenuTrabajadorState extends State<MenuTrabajador> {
                             shape: new RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0)),
                             onPressed: () {
-                              Navigator.pushNamed(context, '/verpacientes');
+                              Navigator.pushNamed(context, '/verpacientesdos');
                             },
                             child: SizedBox(
                               width: 100,

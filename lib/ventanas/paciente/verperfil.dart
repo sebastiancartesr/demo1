@@ -53,9 +53,21 @@ class _VerPerfilState extends State<VerPerfil> {
          body: Container(
            child: Column(
              children:<Widget>[
+                Container(
+                   width: MediaQuery.of(context).size.width / 1,
+                       padding: EdgeInsets.only(
+                         top: 4, left: 260, right: 16, bottom: 0
+                       ),
+                      child:RaisedButton(child: Text('Cerrar sesion'),onPressed:(){
+                        Navigator.popAndPushNamed(context, '/inicio');
+                  
+
+                       }
+                     )
+                     ),
                
-               new Container(
-                 padding: EdgeInsets.only(top:77.0),
+                Container(
+                 padding: EdgeInsets.only(top:50.0),
                  child: new CircleAvatar(
                    backgroundColor: Color(0xF81F7F3),
                    child: new Image(
@@ -70,6 +82,7 @@ class _VerPerfilState extends State<VerPerfil> {
                    shape: BoxShape.circle
                  ),
                ),
+
                Container(
                  alignment: Alignment.centerLeft,
                  child:  Text("        "+_usuario.nombre , style: TextStyle(fontSize: 25) ),
@@ -97,6 +110,7 @@ class _VerPerfilState extends State<VerPerfil> {
                         
                          ],
                        ),
+                       
                        child: TextFormField(
                          
                          //initialValue: _usuario.telefono.toString(),

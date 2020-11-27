@@ -4,7 +4,7 @@ import 'package:demo1/main.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:demo1/controllers/usuario.dart';
-
+import 'package:demo1/controllers/centro.dart';
 class Menup extends StatefulWidget {
   Menup({Key key}) : super(key: key);
   
@@ -15,6 +15,7 @@ class Menup extends StatefulWidget {
 
 class _MenupState extends State<Menup> {
   final Usuario _usuario = new Usuario();
+    final Centro _centro = new Centro();
   DateTime _dateTime= DateTime.now();
   String _splitter(String _sfecha) {
     try {
@@ -38,10 +39,11 @@ class _MenupState extends State<Menup> {
       var datauser = json.decode(response.body);
       print('paso1');
 
-      if(datauser.length == 0){
-        print('paso2');
+      if(datauser.length < 3){
+        print(datauser.length);
         Navigator.pushNamed(context, '/bitacora');
       }else{
+        print(datauser.length);
         print('paso3');
         showDialog(
           context: context,
@@ -57,6 +59,21 @@ class _MenupState extends State<Menup> {
         );          
       }
     return datauser;
+    }
+          Future <List> datoscentro() async{
+      
+      final response = await http.post("http://192.168.1.108/demo1/datoscentro.php", body:{
+      "IdPaciente":_usuario.id.toString(),
+      });
+      var datauser = json.decode(response.body);
+      setState(() {
+        _centro.correo=datauser[0]['Correo'];
+        _centro.direccion=datauser[0]['Direccion'];
+        _centro.telefono=datauser[0]['telefono'];
+
+      }); 
+      Navigator.pushNamed(context, '/verinfo');
+      return datauser;
     }
   
   @override
@@ -137,7 +154,7 @@ class _MenupState extends State<Menup> {
                             shape: new RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0)),
                             onPressed: () {
-                              Navigator.pushNamed(context, '/datapicker');
+                              Navigator.pushNamed(context, '/verbitacoraprueba');
                             },
                             child: SizedBox(
                               width: 100,
@@ -210,7 +227,10 @@ class _MenupState extends State<Menup> {
                             color: Colors.white,
                             shape: new RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0)),
-                            onPressed: () {},
+                            onPressed: () {
+                              datoscentro();
+
+                            },
                             child: SizedBox(
                               width: 100,
                               height: 100,
@@ -230,6 +250,6 @@ class _MenupState extends State<Menup> {
         ),
       );
     
-        
+
   }
 }

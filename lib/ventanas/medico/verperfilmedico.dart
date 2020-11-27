@@ -53,8 +53,20 @@ class _VerPerfilmedicoState extends State<VerPerfilmedico> {
          body: Container(
            child: Column(
              children:<Widget>[
+                               Container(
+                   width: MediaQuery.of(context).size.width / 1,
+                       padding: EdgeInsets.only(
+                         top: 4, left: 260, right: 16, bottom: 0
+                       ),
+                      child:RaisedButton(child: Text('Cerrar sesion'),onPressed:(){
+                        Navigator.popAndPushNamed(context, '/inicio');
+                  
+
+                       }
+                     )
+                     ),
                
-               new Container(
+                Container(
                  padding: EdgeInsets.only(top:77.0),
                  child: new CircleAvatar(
                    backgroundColor: Color(0xF81F7F3),
