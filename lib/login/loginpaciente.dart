@@ -17,9 +17,12 @@ class _LoginpacienteState extends State<Loginpaciente> {
   TextEditingController controllerPass = new TextEditingController();
   final Usuario _usuario = new Usuario();
   String mensaje = '';
+
+// Funciones encargadas de realizar las peticiones al servidor para corroborar que los datos ingresados.
+
      Future <List> login() async{
       
-      final response = await http.post("http://192.168.1.108/demo1/loginpaciente.php", body:{
+      final response = await http.post("http://192.168.1.30/demo1/loginpaciente.php", body:{
       "Correo":controllerUser.text,
       "clave":controllerPass.text,
       });
@@ -42,17 +45,6 @@ class _LoginpacienteState extends State<Loginpaciente> {
 
     return datauser;
     }
-    /*
-    Future respuesta() async{
-      http.Response response = await http.get("http://10.0.2.2:36574/");
-      var datauser = json.decode(response.body);
-      print(datauser);
-
-    return datauser;
-  }
-
-  */
-
 
   @override
   Widget build(BuildContext context) {

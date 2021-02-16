@@ -15,18 +15,14 @@ class VerAlertasPaciente extends StatefulWidget {
 class _VerAlertasPacienteState extends State<VerAlertasPaciente> {
      final Usuario _usuario = new Usuario();
      final Paciente _paciente=new Paciente();
+// funcion encargada de traer todas las alertas registradas por los pacientes
     Future<List> getData() async {
-    final response = await http.post("http://192.168.1.108/demo1/veralertapacientes.php", body:{
+    final response = await http.post("http://192.168.1.30/demo1/veralertapacientes.php", body:{
       "IdPersona":_usuario.id.toString(),
     }); 
     return json.decode(response.body);  
   }
-      Future<List> getId() async {
-    final response = await http.post("http://192.168.1.108/demo1/idusuario.php", body:{
-      "IdPersona":_paciente.idd,
-    }); 
-    return json.decode(response.body);  
-  }
+
 
   @override
    Widget build(BuildContext context) {

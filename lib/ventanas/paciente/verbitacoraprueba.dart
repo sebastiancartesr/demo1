@@ -33,7 +33,7 @@ class _DataPickerprueba extends State<DataPickerprueba> {
   }
   Future <List> verBitacora() async{
       
-      final response = await http.post("http://192.168.1.108/demo1/verbitacora.php", body:{
+      final response = await http.post("http://192.168.1.30/demo1/verbitacora.php", body:{
       "IdPaciente":_usuario.id.toString(),
       "DataIni":_splitter(_dateTime.toString()),
       //"DataFin":_dateTimeFin.toString(),
@@ -76,7 +76,7 @@ class _DataPickerprueba extends State<DataPickerprueba> {
                     //initialDate: _dateTime == null ? DateTime.now() : _dateTime,
                     initialDate: DateTime.now(),
                     firstDate: DateTime(2001),
-                    lastDate: DateTime(2021)
+                    lastDate: DateTime(2022)
                   ).then((date) {
                     print(date);
                     if(date==null){
@@ -107,7 +107,7 @@ class _DataPickerprueba extends State<DataPickerprueba> {
                      Text(mensaje,
                      style: TextStyle(fontSize: 25.0, color: Colors.red),)
             ],
-          ),
+          ),  
         ),
       ),
     );

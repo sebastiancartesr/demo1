@@ -5,6 +5,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:demo1/controllers/usuario.dart';
 import 'package:demo1/controllers/centro.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'dart:async';
+
 class Menup extends StatefulWidget {
   Menup({Key key}) : super(key: key);
   
@@ -14,6 +17,9 @@ class Menup extends StatefulWidget {
 //------------------------------------------------------------------------
 
 class _MenupState extends State<Menup> {
+
+
+
   final Usuario _usuario = new Usuario();
     final Centro _centro = new Centro();
   DateTime _dateTime= DateTime.now();
@@ -32,19 +38,19 @@ class _MenupState extends State<Menup> {
   }
       Future <List> regbitacora() async{
       
-      final response = await http.post("http://192.168.1.108/demo1/regbitacora.php", body:{
+      final response = await http.post("http://192.168.1.30/demo1/regbitacora.php", body:{
       "IdPaciente":_usuario.id.toString(),
       "DataIni":_splitter(_dateTime.toString()),
       });
       var datauser = json.decode(response.body);
-      print('paso1');
+      
 
       if(datauser.length < 3){
         print(datauser.length);
         Navigator.pushNamed(context, '/bitacora');
       }else{
         print(datauser.length);
-        print('paso3');
+        
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -62,7 +68,7 @@ class _MenupState extends State<Menup> {
     }
           Future <List> datoscentro() async{
       
-      final response = await http.post("http://192.168.1.108/demo1/datoscentro.php", body:{
+      final response = await http.post("http://192.168.1.30/demo1/datoscentro.php", body:{
       "IdPaciente":_usuario.id.toString(),
       });
       var datauser = json.decode(response.body);
@@ -75,6 +81,7 @@ class _MenupState extends State<Menup> {
       Navigator.pushNamed(context, '/verinfo');
       return datauser;
     }
+
   
   @override
   Widget build(BuildContext context) {
@@ -228,9 +235,12 @@ class _MenupState extends State<Menup> {
                             shape: new RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0)),
                             onPressed: () {
+                              //Navigator.pushNamed(context, '/pruebaxd');
+                            
                               datoscentro();
 
                             },
+                            
                             child: SizedBox(
                               width: 100,
                               height: 100,
@@ -252,4 +262,6 @@ class _MenupState extends State<Menup> {
     
 
   }
+
+
 }

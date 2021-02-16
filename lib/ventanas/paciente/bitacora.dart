@@ -5,6 +5,8 @@ import 'package:demo1/controllers/usuario.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:demo1/controllers/bitacoraController.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'dart:async';
 
 class Bitacora extends StatefulWidget {
   Bitacora({Key key}) : super(key: key);
@@ -16,7 +18,22 @@ class Bitacora extends StatefulWidget {
 
 class _BitacoraState extends State<Bitacora> {
   final BitacoraController _bitacora= new BitacoraController();
-   
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+    showNotification() async {
+      print('prueba????');
+    var android = new AndroidNotificationDetails(
+        'id', 'channel ', 'description',
+        priority: Priority.High, importance: Importance.Max);
+    var iOS = new IOSNotificationDetails();
+    var platform = new NotificationDetails(android, iOS);
+    await flutterLocalNotificationsPlugin.show(
+        0, 'Alerta', _bitacora.mensaje, platform,
+        payload: 'Welcome to the Local Notification demo ');
+  }
+
+//conexión microservicio Flask Machine Learning
   Future <List> respuesta() async{
       Map<String,String> headers = {
   'Content-type' : 'application/json', 
@@ -30,18 +47,16 @@ class _BitacoraState extends State<Bitacora> {
       );
       print(response);
       var datauser = json.decode(response.body);
-        print('xd');
-            print(datauser);
+   
         setState(() {    
           _bitacora.alerta= (datauser['name']).round();
-          print('el resultado es');
-          print(_bitacora.alerta);
+
       });
 
       enviaralerta();
 
     return datauser;
-    }
+}
 void setmensaje(){
   if (_bitacora.alerta==0){
         setState(() {
@@ -99,8 +114,9 @@ void setmensaje(){
 
   }
 }
-  
+
 void enviaralerta(){
+
   int aux=_bitacora.alerta;
   setmensaje();
   enviaralertaphp();
@@ -230,9 +246,9 @@ void enviaralerta(){
 }
   
   
-  
+//Funcion agregar bitacora a base de datos.
   void addData() {
-    var url = "http://192.168.1.108/demo1/adbitacora.php";
+    var url = "http://192.168.1.30/demo1/adbitacora.php";
 
     http.post(url, body: {
       "FechaHora": now.toString(),
@@ -251,8 +267,9 @@ void enviaralerta(){
     });
     respuesta();
   }
+//Funcion que registra la alerta dentro de la base datos 
     void enviaralertaphp() {
-    var url = "http://192.168.1.108/demo1/adalerta.php";
+    var url = "http://192.168.1.30/demo1/adalerta.php";
 
     http.post(url, body: {
       "TipoNotificacion": '2',
@@ -262,6 +279,7 @@ void enviaralerta(){
       "Mensaje":_bitacora.mensaje,
       "IdPaciente":_usuario.id.toString(),
     });
+    showNotification();
   }
 
   
@@ -777,6 +795,7 @@ void enviaralerta(){
   } 
 
   //cierre
+  
   @override
   Widget build(BuildContext context) {
     String fiebre=_fiebre.toStringAsFixed(1);
@@ -926,7 +945,7 @@ void enviaralerta(){
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(                  
-                            child: Text('¿Qué valor asignaría en relación \n a las Vomitos en este momento?\n',                 
+                            child: Text('¿Qué valor asignaría en relación \n a los Vomitos en este momento?\n',                 
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
@@ -1047,7 +1066,7 @@ void enviaralerta(){
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(                  
-                            child: Text('¿Qué valor asignaría en relación \n a las Diarrea en este momento?\n',                 
+                            child: Text('¿Qué valor asignaría en relación \n a la Diarrea en este momento?\n',                 
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
@@ -1168,7 +1187,7 @@ void enviaralerta(){
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(                  
-                            child: Text('¿Qué valor asignaría en relación \n a las Constipacion en este momento?\n',                 
+                            child: Text('¿Qué valor asignaría en relación \n a la Constipacion en este momento?\n',                 
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
@@ -1289,7 +1308,7 @@ void enviaralerta(){
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(                  
-                            child: Text('¿Qué valor asignaría en relación \n a las Dolor en este momento?\n',                 
+                            child: Text('¿Qué valor asignaría en relación \n al Dolor en este momento?\n',                 
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
@@ -1410,7 +1429,7 @@ void enviaralerta(){
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(                  
-                            child: Text('¿Qué valor asignaría en relación \n a las Fatiga en este momento?\n',                 
+                            child: Text('¿Qué valor asignaría en relación \n a la Fatiga en este momento?\n',                 
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
@@ -1531,7 +1550,7 @@ void enviaralerta(){
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(                  
-                            child: Text('¿Qué valor asignaría en relación \n a las Perdida de apetito en este momento?\n',                 
+                            child: Text('¿Qué valor asignaría en relación \n a la Perdida de apetito en este momento?\n',                 
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
@@ -1652,7 +1671,7 @@ void enviaralerta(){
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(                  
-                            child: Text('¿Qué valor asignaría en relación \n a las Fiebre en este momento?\n',                 
+                            child: Text('¿Cual es tu temperatura \n en este momento?\n',                 
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
@@ -1776,7 +1795,7 @@ void enviaralerta(){
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(                  
-                            child: Text('¿Qué valor asignaría en relación \n a las Sintomas de Resfrio\n en este momento?\n',                 
+                            child: Text('¿Qué valor asignaría en relación \n a los Sintomas de Resfrio\n en este momento?\n',                 
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
@@ -1897,7 +1916,7 @@ void enviaralerta(){
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(                  
-                            child: Text('¿Qué valor asignaría en relación \n a las Sintomas Unitarios\n en este momento?\n',                 
+                            child: Text('¿Qué valor asignaría en relación \n a los Sintomas Unitarios\n en este momento?\n',                 
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
@@ -2116,8 +2135,8 @@ void enviaralerta(){
               children: [
                 RaisedButton(onPressed:(){
                   addData();
-                  
-                  Navigator.popAndPushNamed(context, '/menup');
+                  Navigator.of(context).pop();
+                  //Navigator.popAndPushNamed(context, '/menup');
                 } , child: Text ('Ingresar'))
               ],
             ), 
@@ -2130,4 +2149,8 @@ void enviaralerta(){
         ),
       );
   }
+  
+
+  
 }
+

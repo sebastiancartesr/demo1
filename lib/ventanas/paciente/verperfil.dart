@@ -21,9 +21,11 @@ class _VerPerfilState extends State<VerPerfil> {
   String phone='';
   String pass='';
   String mensaje='';
+
+  // funcion que realiza el update de los datos en la base de datos 
     Future <List> editardatos() async{
       
-      final response = await http.post("http://192.168.1.108/demo1/editdata.php", body:{
+      final response = await http.post("http://192.168.1.30/demo1/editdata.php", body:{
       "Telefono":controllerPhone.text,
       "Clave":controllerPass.text,
       "IdPaciente":_usuario.id.toString(),
@@ -59,7 +61,7 @@ class _VerPerfilState extends State<VerPerfil> {
                          top: 4, left: 260, right: 16, bottom: 0
                        ),
                       child:RaisedButton(child: Text('Cerrar sesion'),onPressed:(){
-                        Navigator.popAndPushNamed(context, '/inicio');
+                        Navigator.pushReplacementNamed(context, '/inicio');
                   
 
                        }

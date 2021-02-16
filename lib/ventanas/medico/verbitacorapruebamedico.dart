@@ -17,7 +17,7 @@ class _VerPacientedosState extends State<VerPacientedos> {
     final Usuario _usuario = new Usuario();
      
     Future<List> getData() async {
-    final response = await http.post("http://192.168.1.108/demo1/verpacientes.php", body:{
+    final response = await http.post("http://192.168.1.30/demo1/verpacientes.php", body:{
       "IdMedico":_usuario.id.toString(),
     }); 
     return json.decode(response.body);  
@@ -121,7 +121,7 @@ class _ElegirFecha extends State<ElegirFecha> {
   }
   Future <List> verBitacora() async{
       
-      final response = await http.post("http://192.168.1.108/demo1/verbitacora.php", body:{
+      final response = await http.post("http://192.168.1.30/demo1/verbitacora.php", body:{
       "IdPaciente":widget.lista[widget.aux]['IdPaciente'],
       "DataIni":_splitter(_dateTime.toString()),
       });
@@ -162,7 +162,7 @@ class _ElegirFecha extends State<ElegirFecha> {
                     context: context,
                     initialDate: DateTime.now(),
                     firstDate: DateTime(2001),
-                    lastDate: DateTime(2021)
+                    lastDate: DateTime(2022)
                   ).then((date) {
                     print(date);
                     if(date==null){

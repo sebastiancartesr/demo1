@@ -1,3 +1,6 @@
+import 'package:demo1/controllers/provider.dart';
+import 'package:demo1/login/newloginmedico.dart';
+import 'package:demo1/login/newloginpaciente.dart';
 import 'package:demo1/ventanas/paciente/bitacora.dart';
 import 'package:demo1/ventanas/paciente/menupaciente.dart';
 import 'package:demo1/ventanas/medico/menutrabajador.dart';
@@ -22,12 +25,17 @@ import 'package:demo1/ventanas/paciente/informacion.dart';
 import 'package:demo1/ventanas/paciente/Infoverbitacora.dart';
 import 'package:demo1/ventanas/paciente/cambiardatos.dart';
 import 'package:demo1/ventanas/paciente/infoseleccionarbitacora.dart';
+import 'package:demo1/ventanas/paciente/pruebanotificacion.dart';
+//import 'package:flutter_driver/driver_extension.dart';
+
 void main() => runApp(MyApp());
+
 
 class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context){
-    return MaterialApp(
+    return Provider(
+      child: MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
         "/inicio" : (BuildContext context) => Inicio(),
@@ -53,9 +61,14 @@ class MyApp extends StatelessWidget{
         "/infoverbitacora":(BuildContext context) =>InfoBitacora(),
         "/cambiardatos":(BuildContext context) =>CambiarDatos(),
         "/selecbitacora":(BuildContext context) =>InfoSeleccionarBitacora(),
+        "/pruebaxd":(BuildContext context)=>Pruebaxd(),
+        "/loginconvalidador":(BuildContext context)=>LoginPage(),
+        "/loginconvalidadorpaciente":(BuildContext context)=>LoginPagePaciente(),
       }
       ,
       home: Inicio()
+    ),
+
     );
   }
 }
@@ -74,17 +87,20 @@ class Inicio extends StatelessWidget{
           controller: control,
           children: [
 // slider 1 bienvenida
-
-            new Container(
+            Scaffold(            
+              body: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
                 image: AssetImage("assets/images/fondoindex.jpg"),
                 fit: BoxFit.cover,
                 ),
               ),
-              ),
+            ),),
+
 // slider 2 login paciente
-            Container(
+/*
+            Scaffold(
+              body:             Container(
                 decoration: BoxDecoration(
                 image: DecorationImage(
                 image: AssetImage("assets/images/fondo.png"),
@@ -121,28 +137,123 @@ class Inicio extends StatelessWidget{
                       right: 60,
                       left: 60
                       ),
-                    child: RaisedButton(
+                    child: 
+                  ),
+                ],
+              ),
+            ),
+            ),
+*/
+Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image:AssetImage('assets/images/fondopaciente.jpg'),
+            fit: BoxFit.cover,
+            ),
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color.fromRGBO(189, 219, 255, 0.8),
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(30.0),
+                  child: Text(
+                    'Ingresar como \n Paciente',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color:Colors.black.withOpacity(1),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 40.0,
+                      fontFamily: "Poppins"
+                    ),
+                  ),
+                ),
+                SizedBox(height: 80.0),
+                RaisedButton(
                       color: Colors.white,
+                      
                       shape: new RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0)),
+                        borderRadius: BorderRadius.circular(50.0)),
                       onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/loginpaciente');
+                        Navigator.pushReplacementNamed(context, '/loginconvalidadorpaciente');
                       },
                       child: SizedBox(
-                        width: 230,
-                        height: 90,
+                        width: 200,
+                        height: 70,
                         child: Center(
                           child: Text("Ingresar",
                             style: TextStyle(fontSize: 25.0),
                             textAlign: TextAlign.center),
                           ),
-                        ),
                       ),
-                  ),
-                ],
-              ),
+                      ),
+              ],
             ),
+          ),
+        ),
+      ),
+    ),
 // login medico
+Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image:AssetImage('assets/images/fondopaciente2.jpg'),
+            fit: BoxFit.cover,
+            ),
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color.fromRGBO(189, 219, 255, 0.8),
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(30.0),
+                  child: Text(
+                    'Ingresar como \n Médico',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color:Colors.black.withOpacity(1),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 40.0,
+                      fontFamily: "Poppins"
+                    ),
+                  ),
+                ),
+                SizedBox(height: 80.0),
+                RaisedButton(
+                      color: Colors.white,
+                      
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.0)),
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/loginconvalidador');
+                      },
+                      child: SizedBox(
+                        width: 200,
+                        height: 70,
+                        child: Center(
+                          child: Text("Ingresar",
+                            style: TextStyle(fontSize: 25.0),
+                            textAlign: TextAlign.center),
+                          ),
+                      ),
+                      ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ),
+/*
             new Container( 
                 decoration: BoxDecoration(
                 image: DecorationImage(
@@ -185,7 +296,9 @@ class Inicio extends StatelessWidget{
                     shape: new RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
                       onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/loginmedico');
+                       // Navigator.pushReplacementNamed(context, '/loginmedico');
+                         Navigator.pushReplacementNamed(context, '/loginconvalidador');
+                        
                         
                       },
                       child: SizedBox(
@@ -201,7 +314,7 @@ class Inicio extends StatelessWidget{
                   ),
                 ],
               ),
-            ),
+            ),*/
           ],
     )));
   }}

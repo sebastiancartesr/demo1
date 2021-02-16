@@ -92,7 +92,7 @@ class _VerInfoState extends State<VerInfo> {
                                Navigator.pushNamed(context, "/infoverbitacora");
                             },
                             child: SizedBox(
-                              width: 100,
+                              width: 350,
                               height: 100,
                               child: Center(
                                 child: Text("¿Como registrar bitacora?",
@@ -109,7 +109,7 @@ class _VerInfoState extends State<VerInfo> {
                               Navigator.pushNamed(context, "/selecbitacora");
                             },
                             child: SizedBox(
-                              width: 100,
+                              width: 350,
                               height: 100,
                               child: Center(
                                 child: Text("¿Como ver bitacoras pasadas?",
@@ -126,7 +126,7 @@ class _VerInfoState extends State<VerInfo> {
                               Navigator.pushNamed(context, "/cambiardatos");
                             },
                             child: SizedBox(
-                              width: 100,
+                              width: 350,
                               height: 100,
                               child: Center(
                                 child: Text("¿Como cambiar datos personales?",
