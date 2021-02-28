@@ -248,7 +248,7 @@ void enviaralerta(){
   
 //Funcion agregar bitacora a base de datos.
   void addData() {
-    var url = "http://192.168.1.30/demo1/adbitacora.php";
+    var url = "http://192.168.1.27/demo1/adbitacora.php";
 
     http.post(url, body: {
       "FechaHora": now.toString(),
@@ -269,7 +269,7 @@ void enviaralerta(){
   }
 //Funcion que registra la alerta dentro de la base datos 
     void enviaralertaphp() {
-    var url = "http://192.168.1.30/demo1/adalerta.php";
+    var url = "http://192.168.1.27/demo1/adalerta.php";
 
     http.post(url, body: {
       "TipoNotificacion": '2',

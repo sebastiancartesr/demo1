@@ -17,7 +17,7 @@ class _VerPacienteState extends State<VerPaciente> {
     final Usuario _usuario = new Usuario();
 // Funcion que trae una lista de todos los pacientes que se encuentran registrados con ese equipo
     Future<List> getData() async {
-    final response = await http.post("http://192.168.1.30/demo1/verpacientes.php", body:{
+    final response = await http.post("http://192.168.1.27/demo1/verpacientes.php", body:{
       "IdMedico":_usuario.id.toString(),
     }); 
     return json.decode(response.body);  
@@ -125,7 +125,7 @@ class _ElegirFecha extends State<ElegirFecha> {
 // en la fecha seleccionada
   Future <List> verbitacora() async{
       
-      final response = await http.post("http://192.168.1.30/demo1/verbitacora.php", body:{
+      final response = await http.post("http://192.168.1.27/demo1/verbitacora.php", body:{
       "IdPaciente":_paciente.idd,
       "DataIni":_splitter(_dateTime.toString()),
       //"DataFin":_dateTimeFin.toString(),

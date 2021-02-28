@@ -22,7 +22,7 @@ class _LoginpacienteState extends State<Loginpaciente> {
 
      Future <List> login() async{
       
-      final response = await http.post("http://192.168.1.30/demo1/loginpaciente.php", body:{
+      final response = await http.post("http://192.168.1.27/demo1/loginpaciente.php", body:{
       "Correo":controllerUser.text,
       "clave":controllerPass.text,
       });

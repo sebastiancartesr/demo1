@@ -33,7 +33,7 @@ class _DataPicker extends State<DataPicker> {
   }
   Future <List> verBitacora() async{
       
-      final response = await http.post("http://192.168.1.30/demo1/verbitacora.php", body:{
+      final response = await http.post("http://192.168.1.27/demo1/verbitacora.php", body:{
       "IdPaciente":_usuario.id.toString(),
       "DataIni":_splitter(_dateTime.toString()),
       //"DataFin":_dateTimeFin.toString(),

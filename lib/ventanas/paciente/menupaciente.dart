@@ -38,7 +38,7 @@ class _MenupState extends State<Menup> {
   }
       Future <List> regbitacora() async{
       
-      final response = await http.post("http://192.168.1.30/demo1/regbitacora.php", body:{
+      final response = await http.post("http://192.168.1.27/demo1/regbitacora.php", body:{
       "IdPaciente":_usuario.id.toString(),
       "DataIni":_splitter(_dateTime.toString()),
       });
@@ -68,7 +68,7 @@ class _MenupState extends State<Menup> {
     }
           Future <List> datoscentro() async{
       
-      final response = await http.post("http://192.168.1.30/demo1/datoscentro.php", body:{
+      final response = await http.post("http://192.168.1.27/demo1/datoscentro.php", body:{
       "IdPaciente":_usuario.id.toString(),
       });
       var datauser = json.decode(response.body);

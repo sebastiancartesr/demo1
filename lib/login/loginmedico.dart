@@ -25,7 +25,7 @@ class _LoginmedicoState extends State<Loginmedico> {
 // Funciones encargadas de realizar las peticiones al servidor para corroborar que los datos ingresados.
 
    Future <List> login() async{
-    final response = await http.post("http://192.168.1.30/demo1/loginfuncionario.php", body:{
+    final response = await http.post("http://192.168.1.27/demo1/loginfuncionario.php", body:{
       "Correo":controllerUser.text,
       "clave":controllerPass.text,
     });
@@ -196,7 +196,7 @@ class _LoginmedicoState extends State<Loginmedico> {
 
 
 // 192.168.1.1
-// 192.168.1.30
+// 192.168.1.27
 // =>  
 // <>
 

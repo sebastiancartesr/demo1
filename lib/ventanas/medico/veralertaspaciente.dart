@@ -17,7 +17,7 @@ class _VerAlertasPacienteState extends State<VerAlertasPaciente> {
      final Paciente _paciente=new Paciente();
 // funcion encargada de traer todas las alertas registradas por los pacientes
     Future<List> getData() async {
-    final response = await http.post("http://192.168.1.30/demo1/veralertapacientes.php", body:{
+    final response = await http.post("http://192.168.1.27/demo1/veralertapacientes.php", body:{
       "IdPersona":_usuario.id.toString(),
     }); 
     return json.decode(response.body);  

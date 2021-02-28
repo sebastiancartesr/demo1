@@ -25,7 +25,7 @@ class _VerPerfilState extends State<VerPerfil> {
   // funcion que realiza el update de los datos en la base de datos 
     Future <List> editardatos() async{
       
-      final response = await http.post("http://192.168.1.30/demo1/editdata.php", body:{
+      final response = await http.post("http://192.168.1.27/demo1/editdata.php", body:{
       "Telefono":controllerPhone.text,
       "Clave":controllerPass.text,
       "IdPaciente":_usuario.id.toString(),

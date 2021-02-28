@@ -1,4 +1,5 @@
 import 'package:demo1/controllers/provider.dart';
+import 'package:demo1/controllers/push_notification_provider.dart';
 import 'package:demo1/login/newloginmedico.dart';
 import 'package:demo1/login/newloginpaciente.dart';
 import 'package:demo1/ventanas/paciente/bitacora.dart';
@@ -30,8 +31,25 @@ import 'package:demo1/ventanas/paciente/pruebanotificacion.dart';
 
 void main() => runApp(MyApp());
 
+// f4_DAiwRTtCDS9aJIEYtev:APA91bGu-NY0knJ9UP3rbV0rpH7SukKTfoi_q-psFGnyIC12pH0TT-2LeBEamEbF7FLBEC9ZrEQYX0EC34VvAsYrfBrMcfvA-UMB2NTkWX-U35o9EQIrvRBWG6IEcQx27xubbOjwtvp1
 
-class MyApp extends StatelessWidget{
+class MyApp extends StatefulWidget{
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState() { 
+    super.initState();
+
+    final pushProvider = new PushNotificationsProvider();
+    pushProvider.initNotifications();
+    
+  }
+
+
   @override
   Widget build(BuildContext context){
     return Provider(
@@ -98,52 +116,7 @@ class Inicio extends StatelessWidget{
             ),),
 
 // slider 2 login paciente
-/*
-            Scaffold(
-              body:             Container(
-                decoration: BoxDecoration(
-                image: DecorationImage(
-                image: AssetImage("assets/images/fondo.png"),
-                fit: BoxFit.cover,
-                ),
-              ),
-              child: Column( 
-                children: [
-                  new Container(               
-                    decoration: BoxDecoration(
-                  image: DecorationImage(
-                  image: AssetImage("assets/images/fondo.png"),
-                  fit: BoxFit.cover,
-                  ),
-                ),
-                    padding: EdgeInsets.only(
-                    top: 100,
-                    bottom: 190,
-                    right: 50,
-                    left: 50
-                  ),
-                  child: new Text('Si eres paciente ingresa aqui', style: TextStyle(fontSize: 40),),
-                  ),
-                  new Container(
-                    decoration: BoxDecoration(
-                    image: DecorationImage(
-                    image: AssetImage("assets/images/fondo.png"),
-                    fit: BoxFit.cover,
-                      ),
-                    ),
-                    padding: EdgeInsets.only(
-                      top: 100,
-                      bottom: 52,
-                      right: 60,
-                      left: 60
-                      ),
-                    child: 
-                  ),
-                ],
-              ),
-            ),
-            ),
-*/
+
 Scaffold(
       body: Container(
         decoration: BoxDecoration(

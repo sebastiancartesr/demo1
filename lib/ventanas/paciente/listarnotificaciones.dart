@@ -15,7 +15,7 @@ class _ListarNotificacionesState extends State<ListarNotificaciones> {
      final Usuario _usuario = new Usuario();
      
     Future<List> getData() async {
-    final response = await http.post("http://192.168.1.30/demo1/getnotificaciones.php", body:{
+    final response = await http.post("http://192.168.1.27/demo1/getnotificaciones.php", body:{
       "IdPaciente":_usuario.id.toString(),
     }); 
     return json.decode(response.body);  

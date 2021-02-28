@@ -16,7 +16,7 @@ class _LoginPageState extends State<LoginPage> {
     final Usuario _usuario = new Usuario();
 
     Future <List> _login(LoginBloc bloc) async{
-    final response = await http.post("http://192.168.1.30/demo1/loginfuncionario.php", body:{
+    final response = await http.post("http://192.168.1.27/demo1/loginfuncionario.php", body:{
       "Correo":bloc.email,
       "clave":bloc.clave,
     });
